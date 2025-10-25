@@ -1,8 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { PenSquare } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
@@ -35,14 +33,6 @@ export function Header() {
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <nav className="flex items-center">
-             <Link href="/admin/new" legacyBehavior passHref>
-                <Button variant={pathname === '/admin/new' ? 'secondary' : 'ghost'} size="sm">
-                  <PenSquare className="mr-2 h-4 w-4" />
-                  New Post
-                </Button>
-            </Link>
-          </nav>
         </div>
       </div>
     </header>

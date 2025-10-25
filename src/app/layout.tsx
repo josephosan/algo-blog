@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Toaster } from '@/components/ui/toaster';
 import { Header } from '@/components/layout/header';
 import { cn } from '@/lib/utils';
+import { PageProgress } from '@/components/layout/page-progress';
+import { Suspense } from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -27,6 +29,9 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
         </div>
         <Toaster />
+        <Suspense fallback={null}>
+          <PageProgress />
+        </Suspense>
       </body>
     </html>
   );
