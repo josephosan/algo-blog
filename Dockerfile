@@ -1,39 +1,33 @@
-# 1. Base Image: Use the official Node.js 20 Alpine image for a lightweight base.
-FROM node:20-alpine AS base
-
-# 2. Set Working Directory
+# 1. Install dependencies
+FROM node:20-alpine AS deps
 WORKDIR /app
 
-# 3. Build Stage: This stage builds the Next.js application.
-FROM base AS builder
-
-# Copy package.json and package-lock.json (if available)
-COPY package.json ./
-COPY package-lock.json ./
+# Copy package.json and lock files
+COPY package.json package-lock.json* ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application source code
+# 2. Build the application
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build the Next.js application for production
+# Generate the Next.js build
 RUN npm run build
 
-# 4. Runner Stage: This stage runs the built application.
-FROM base AS runner
+# 3. Run the application
+FROM node:20-alpine AS runner
+WORKDIR /app
 
-# Set environment to production
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
-# Copy the standalone output from the builder stage
-# This includes the Next.js server and static assets.
-COPY --from=builder /app/next.config.ts ./
+# Copy built assets
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-# Expose the port the app runs on
 EXPOSE 3000
 
-# Start the Next.js server
 CMD ["node", "server.js"]
