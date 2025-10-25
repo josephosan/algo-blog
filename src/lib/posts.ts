@@ -2,6 +2,33 @@ import type { Post } from '@/types';
 
 const posts: Post[] = [
   {
+    slug: 'intro-to-data-structures',
+    title: 'Introduction to Data Structures',
+    date: '2024-07-30',
+    category: 'Data Structures',
+    excerpt: 'Learn about the fundamental building blocks of computer science: data structures. This post introduces what they are and why they are important.',
+    tags: ['data structures', 'computer science', 'basics', 'programming'],
+    content: `Data structures are a way of organizing and storing data in a computer so that it can be accessed and modified efficiently. They are not just about storing data, but also about the relationships between data points and the operations that can be performed on the data.
+
+### Why are they important?
+
+Choosing the right data structure is crucial for creating efficient algorithms. The way data is organized can dramatically affect the performance of a program. For example, finding an item in a sorted array is much faster than in an unsorted one.
+
+### Common Data Structures
+
+Here are some of the most common data structures you'll encounter:
+
+*   **Arrays:** A collection of items stored at contiguous memory locations.
+*   **Linked Lists:** A linear collection of data elements, whose order is not given by their physical placement in memory.
+*   **Stacks:** A "last-in, first-out" (LIFO) structure. Think of a stack of plates.
+*   **Queues:** A "first-in, first-out" (FIFO) structure. Like a checkout line at a store.
+*   **Trees:** A hierarchical structure with a root value and subtrees of children with a parent node.
+*   **Graphs:** A set of nodes (or vertices) and a set of edges that connect pairs of nodes.
+*   **Hash Tables:** A data structure that implements an associative array abstract data type, a structure that can map keys to values.
+
+This blog will explore these and many other data structures in future posts. Stay tuned!`,
+  },
+  {
     slug: 'binary-search-explained',
     title: 'Binary Search Explained',
     date: '2024-07-28',
