@@ -12,22 +12,19 @@ interface CategoryFilterProps {
 export function CategoryFilter({ categories, currentCategory }: CategoryFilterProps) {
   return (
     <div className="flex flex-wrap items-center justify-center gap-2">
-      <Link href="/" passHref>
-        <Button asChild variant={!currentCategory ? 'default' : 'outline'} size="sm">
-          <a>All</a>
-        </Button>
-      </Link>
+      <Button asChild variant={!currentCategory ? 'default' : 'outline'} size="sm">
+        <Link href="/">All</Link>
+      </Button>
       {categories.map((category) => (
-        <Link href={`/?category=${category}`} key={category} passHref>
-          <Button
-            asChild
-            variant={currentCategory === category ? 'default' : 'outline'}
-            size="sm"
-            className="capitalize"
-          >
-            <a>{category}</a>
-          </Button>
-        </Link>
+        <Button
+          asChild
+          key={category}
+          variant={currentCategory === category ? 'default' : 'outline'}
+          size="sm"
+          className="capitalize"
+        >
+          <Link href={`/?category=${category}`}>{category}</Link>
+        </Button>
       ))}
     </div>
   );
