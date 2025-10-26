@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { PageProgress } from '@/components/layout/page-progress';
 import { Suspense } from 'react';
 import { ThemeProvider } from '@/components/layout/theme-provider';
+import { Footer } from '@/components/layout/footer';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -38,6 +39,7 @@ export default function RootLayout({
           <div className="relative flex min-h-screen flex-col">
             <Header />
             <main className="flex-1">{children}</main>
+            <Footer />
           </div>
           <Toaster />
           <Suspense fallback={null}>
