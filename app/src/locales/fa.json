@@ -1,0 +1,34 @@
+{
+    "header": {
+        "title": "وبلاگ الگوریتم"
+    },
+    "footer": {
+        "text": "© {year} وبلاگ الگوریتم. تمامی حقوق محفوظ است. | توسعه داده شده توسط <a href='https://josephosanlou.ir' target='_blank' rel='noopener noreferrer' class='font-medium text-primary underline-offset-4 hover:underline'>یوسف او.</a>"
+    },
+    "home": {
+        "title": "وبلاگ الگوریتم",
+        "subtitle": "تجزیه الگوریتم‌های پیچیده به پست‌های ساده و قابل فهم.",
+        "noPostsTitle": "هیچ پستی یافت نشد",
+        "noPostsDescription": "هیچ پستی در دسته‌بندی «{category}» وجود ندارد.",
+        "viewAllPosts": "مشاهده همه پست‌ها"
+    },
+    "categories": {
+        "all": "همه"
+    },
+    "post": {
+        "loading": "در حال بارگذاری پست...",
+        "tags": "برچسب‌ها"
+    },
+    "postCard": {
+        "readMore": "بیشتر بخوانید"
+    },
+    "theme": {
+        "toggle": "تغییر تم",
+        "light": "روشن",
+        "dark": "تاریک",
+        "system": "سیستم"
+    },
+    "language": {
+        "toggle": "تغییر زبان"
+    }
+}
