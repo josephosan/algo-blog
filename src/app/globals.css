@@ -83,6 +83,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  [dir="rtl"] .font-headline {
+    @apply font-persian;
+  }
+  [dir="rtl"] .font-body {
+    @apply font-persian;
+  }
 }
 
 /* nprogress styles */
