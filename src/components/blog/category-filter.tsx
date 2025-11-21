@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useLanguage } from '@/contexts/language-context';
+import { useDictionary } from '@/hooks/use-dictionary';
 
 interface CategoryFilterProps {
   categories: string[];
@@ -10,10 +12,15 @@ interface CategoryFilterProps {
 }
 
 export function CategoryFilter({ categories, currentCategory }: CategoryFilterProps) {
+  const { language } = useLanguage();
+  const dictionary = useDictionary();
+
+  if (!dictionary) return null;
+
   return (
-    <div className="flex flex-wrap items-center justify-center gap-2">
+    <div className={`flex flex-wrap items-center justify-center gap-2 ${language === 'fa' ? 'font-persian' : ''}`}>
       <Button asChild variant={!currentCategory ? 'default' : 'outline'} size="sm">
-        <Link href="/">All</Link>
+        <Link href="/">{dictionary.categories.all}</Link>
       </Button>
       {categories.map((category) => (
         <Button

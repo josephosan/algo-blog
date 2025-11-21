@@ -1,10 +1,16 @@
+'use client';
 import { notFound } from 'next/navigation';
-import { getPostBySlug, getPosts } from '@/lib/posts';
+import { getPostBySlug } from '@/lib/posts';
 import { format } from 'date-fns';
+import { faIR } from 'date-fns/locale';
 import { Badge } from '@/components/ui/badge';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { CodeBlock } from '@/components/blog/code-block';
+import { useLanguage } from '@/contexts/language-context';
+import { useDictionary } from '@/hooks/use-dictionary';
+import { useEffect, useState } from 'react';
+import type { Post } from '@/types';
 
 interface PostPageProps {
   params: {
@@ -12,31 +18,48 @@ interface PostPageProps {
   };
 }
 
-export async function generateStaticParams() {
-  const posts = await getPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+export default function PostPage({ params }: PostPageProps) {
+  const { language } = useLanguage();
+  const dictionary = useDictionary();
+  const [post, setPost] = useState<Post | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
 
-export default async function PostPage({ params }: PostPageProps) {
-  const post = await getPostBySlug(params.slug);
+  useEffect(() => {
+    async function fetchPost() {
+      const foundPost = await getPostBySlug(params.slug);
+      setPost(foundPost);
+      setLoading(false);
+    }
+    fetchPost();
+  }, [params.slug]);
+
+  if (loading || !dictionary) {
+    return <div>Loading...</div>; // Or a proper loading skeleton
+  }
 
   if (!post) {
     notFound();
   }
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    if (language === 'fa') {
+      return new Intl.DateTimeFormat('fa-IR', { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
+    }
+    return format(date, 'MMMM d, yyyy');
+  };
+
   return (
-    <article className="container mx-auto max-w-3xl py-8 px-4 sm:px-6 lg:py-12 lg:px-8">
+    <article className={`container mx-auto max-w-3xl py-8 px-4 sm:px-6 lg:py-12 lg:px-8 ${language === 'fa' ? 'rtl font-persian' : 'font-body'}`}>
       <header className="mb-8">
         <div className="space-y-2 text-center">
-            <Badge variant="secondary" className="text-sm">{post.category}</Badge>
+            <Badge variant="secondary" className="text-sm">{post.category[language]}</Badge>
             <h1 className="text-4xl font-headline font-extrabold tracking-tight lg:text-5xl">
-                {post.title}
+                {post.title[language]}
             </h1>
             <p className="text-muted-foreground">
                 <time dateTime={post.date}>
-                {format(new Date(post.date), 'MMMM d, yyyy')}
+                  {formatDate(post.date)}
                 </time>
             </p>
         </div>
@@ -61,14 +84,14 @@ export default async function PostPage({ params }: PostPageProps) {
             }
           }}
         >
-          {post.content}
+          {post.content[language]}
         </ReactMarkdown>
       </div>
 
       <footer className="mt-12">
         <div className="flex flex-wrap gap-2">
-          <span className="font-semibold">Tags:</span>
-          {post.tags.map((tag) => (
+          <span className="font-semibold">{dictionary.post.tags}:</span>
+          {post.tags[language].map((tag) => (
             <Badge key={tag} variant="outline">
               {tag}
             </Badge>

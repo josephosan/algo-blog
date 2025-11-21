@@ -1,0 +1,26 @@
+{
+  "header": {
+    "title": "وبلاگ الگوریتم"
+  },
+  "footer": {
+    "rights": "تمامی حقوق محفوظ است.",
+    "developedBy": "توسعه داده شده توسط",
+    "developerName": "یوسف"
+  },
+  "home": {
+    "title": "وبلاگ الگوریتم",
+    "description": "تجزیه الگوریتم‌های پیچیده به پست‌های ساده و قابل فهم.",
+    "noPosts": "هیچ پستی یافت نشد",
+    "noPostsInCategory": "هیچ پستی در دسته بندی «{category}» وجود ندارد.",
+    "viewAllPosts": "مشاهده همه پست‌ها"
+  },
+  "post": {
+    "tags": "تگ‌ها"
+  },
+  "postCard": {
+    "readMore": "بیشتر بخوانید"
+  },
+  "categories": {
+    "all": "همه"
+  }
+}

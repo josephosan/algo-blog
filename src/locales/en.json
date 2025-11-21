@@ -1,0 +1,26 @@
+{
+  "header": {
+    "title": "Algo Blog"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "developedBy": "Developed by",
+    "developerName": "Joseph O."
+  },
+  "home": {
+    "title": "Algo Blog",
+    "description": "Deconstructing complex algorithms into simple, digestible posts.",
+    "noPosts": "No Posts Found",
+    "noPostsInCategory": "There are no posts in the \"{category}\" category.",
+    "viewAllPosts": "View all posts"
+  },
+  "post": {
+    "tags": "Tags"
+  },
+  "postCard": {
+    "readMore": "Read More"
+  },
+  "categories": {
+    "all": "All"
+  }
+}

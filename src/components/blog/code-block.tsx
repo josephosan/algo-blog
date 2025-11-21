@@ -5,12 +5,19 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Button } from '@/components/ui/button';
 import { Check, Clipboard, Play, Loader } from 'lucide-react';
 import { useState } from 'react';
-import { runCode } from '@/ai/flows/run-code-flow';
 
 interface CodeBlockProps {
   language: string;
   value: string;
 }
+
+// Dummy function to replace the missing AI function
+const runCode = async (input: { code: string; language: string }): Promise<string> => {
+  console.log(`Running ${input.language} code:`, input.code);
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  return "AI code execution is currently disabled.";
+};
+
 
 export function CodeBlock({ language, value }: CodeBlockProps) {
   const [hasCopied, setHasCopied] = useState(false);
