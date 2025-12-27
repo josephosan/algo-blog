@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { getPosts } from '@/lib/posts';
 import { PostCard } from '@/components/blog/post-card';
 import { CategoryFilter } from '@/components/blog/category-filter';
@@ -8,14 +9,12 @@ import { useDictionary } from '@/hooks/use-dictionary';
 import { useState, useEffect } from 'react';
 import type { Post } from '@/types';
 
-export default function BlogPage({
-  searchParams,
-}: {
-  searchParams?: { category?: string };
-}) {
+export default function BlogPage() {
   const { language } = useLanguage();
   const dictionary = useDictionary();
   const [posts, setPosts] = useState<Post[]>([]);
+  const searchParams = useSearchParams();
+  const currentCategory = searchParams.get('category');
 
   useEffect(() => {
     async function fetchPosts() {
@@ -30,7 +29,6 @@ export default function BlogPage({
   }
 
   const categories = [...new Set(posts.map((post) => post.category[language]))];
-  const currentCategory = searchParams?.category;
 
   const filteredPosts = currentCategory
     ? posts.filter((post) => post.category[language] === currentCategory)
@@ -47,7 +45,7 @@ export default function BlogPage({
         </p>
       </header>
       
-      <CategoryFilter categories={categories} currentCategory={currentCategory} />
+      <CategoryFilter categories={categories} currentCategory={currentCategory || undefined} />
 
       <div className="mt-12 grid gap-8">
         {filteredPosts.length > 0 ? (
