@@ -1,5 +1,5 @@
 'use client';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { getPostBySlug } from '@/lib/posts';
 import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
@@ -11,26 +11,25 @@ import { useDictionary } from '@/hooks/use-dictionary';
 import { useEffect, useState } from 'react';
 import type { Post } from '@/types';
 
-interface PostPageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default function PostPage({ params }: PostPageProps) {
+export default function PostPage() {
   const { language } = useLanguage();
   const dictionary = useDictionary();
+  const params = useParams();
+  const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+
   const [post, setPost] = useState<Post | undefined>(undefined);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchPost() {
-      const foundPost = await getPostBySlug(params.slug);
-      setPost(foundPost);
+      if (slug) {
+        const foundPost = await getPostBySlug(slug);
+        setPost(foundPost);
+      }
       setLoading(false);
     }
     fetchPost();
-  }, [params.slug]);
+  }, [slug]);
 
   if (loading || !dictionary) {
     return (
