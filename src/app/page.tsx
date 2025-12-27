@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
 import { useDictionary } from '@/hooks/use-dictionary';
 import { useLanguage } from '@/contexts/language-context';
 
@@ -13,6 +13,8 @@ export default function LandingPage() {
   if (!dictionary) {
     return null;
   }
+
+  const ReadMoreIcon = language === 'fa' ? ArrowLeft : ArrowRight;
   
   return (
     <div className={`container mx-auto max-w-4xl py-12 px-4 sm:px-6 lg:px-8 ${language === 'fa' ? 'rtl font-persian' : 'font-body'}`}>
@@ -26,7 +28,9 @@ export default function LandingPage() {
         <div className="mt-8 flex justify-center gap-4">
           <Button asChild size="lg">
             <Link href="/blog">
-              {dictionary.landing.browsePosts} <ArrowRight className="ml-2 h-5 w-5" />
+              {language === 'fa' && <ReadMoreIcon className="mr-2 h-5 w-5" />}
+              {dictionary.landing.browsePosts}
+              {language === 'en' && <ReadMoreIcon className="ml-2 h-5 w-5" />}
             </Link>
           </Button>
         </div>
