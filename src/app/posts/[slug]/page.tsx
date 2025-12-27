@@ -2,7 +2,6 @@
 import { notFound } from 'next/navigation';
 import { getPostBySlug } from '@/lib/posts';
 import { format } from 'date-fns';
-import { faIR } from 'date-fns/locale';
 import { Badge } from '@/components/ui/badge';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -34,7 +33,20 @@ export default function PostPage({ params }: PostPageProps) {
   }, [params.slug]);
 
   if (loading || !dictionary) {
-    return <div>Loading...</div>; // Or a proper loading skeleton
+    return (
+      <div className="container mx-auto max-w-3xl py-8 px-4 sm:px-6 lg:py-12 lg:px-8">
+        <div className="space-y-4">
+          <div className="h-8 bg-muted rounded w-1/4 mx-auto"></div>
+          <div className="h-12 bg-muted rounded w-3/4 mx-auto"></div>
+          <div className="h-6 bg-muted rounded w-1/2 mx-auto"></div>
+        </div>
+        <div className="mt-12 space-y-4">
+          <div className="h-6 bg-muted rounded w-full"></div>
+          <div className="h-6 bg-muted rounded w-full"></div>
+          <div className="h-6 bg-muted rounded w-5/6"></div>
+        </div>
+      </div>
+    );
   }
 
   if (!post) {
@@ -98,6 +110,7 @@ export default function PostPage({ params }: PostPageProps) {
           ))}
         </div>
       </footer>
+
     </article>
   );
 }

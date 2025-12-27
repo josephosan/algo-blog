@@ -1,70 +1,46 @@
-'use client';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { getPosts } from '@/lib/posts';
-import { PostCard } from '@/components/blog/post-card';
-import { CategoryFilter } from '@/components/blog/category-filter';
-import { useLanguage } from '@/contexts/language-context';
+import { ArrowRight } from 'lucide-react';
 import { useDictionary } from '@/hooks/use-dictionary';
-import { useState, useEffect } from 'react';
-import type { Post } from '@/types';
+import { useLanguage } from '@/contexts/language-context';
 
-export default function Home({
-  searchParams,
-}: {
-  searchParams?: { category?: string };
-}) {
+export default function LandingPage() {
   const { language } = useLanguage();
   const dictionary = useDictionary();
-  const [posts, setPosts] = useState<Post[]>([]);
-
-  useEffect(() => {
-    async function fetchPosts() {
-      const fetchedPosts = await getPosts();
-      setPosts(fetchedPosts);
-    }
-    fetchPosts();
-  }, []);
 
   if (!dictionary) {
-    return null; 
+    return null;
   }
-
-  const categories = [...new Set(posts.map((post) => post.category[language]))];
-  const currentCategory = searchParams?.category;
-
-  const filteredPosts = currentCategory
-    ? posts.filter((post) => post.category[language] === currentCategory)
-    : posts;
-
+  
   return (
-    <div className={`container mx-auto max-w-4xl py-8 px-4 sm:px-6 lg:px-8 ${language === 'fa' ? 'rtl font-persian' : 'font-body'}`}>
-      <header className="mb-8 text-center">
-        <h1 className="text-4xl font-headline font-bold tracking-tight text-foreground sm:text-5xl">
-          {dictionary.home.title}
+    <div className={`container mx-auto max-w-4xl py-12 px-4 sm:px-6 lg:px-8 ${language === 'fa' ? 'rtl font-persian' : 'font-body'}`}>
+      <div className="text-center">
+        <h1 className="text-4xl font-headline font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          {dictionary.header.title}
         </h1>
-        <p className="mt-2 text-lg text-muted-foreground">
+        <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground sm:text-xl">
           {dictionary.home.description}
         </p>
-      </header>
-      
-      <CategoryFilter categories={categories} currentCategory={currentCategory} />
-
-      <div className="mt-12 grid gap-8">
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map((post) => (
-            <PostCard key={post.slug} post={post} />
-          ))
-        ) : (
-          <div className="text-center py-16">
-            <h2 className="text-2xl font-headline font-semibold">{dictionary.home.noPosts}</h2>
-            <p className="text-muted-foreground mt-2">
-              {dictionary.home.noPostsInCategory.replace('{category}', currentCategory || '')}
-            </p>
-            <Link href="/" className="mt-4 inline-block text-accent hover:underline">
-              {dictionary.home.viewAllPosts}
+        <div className="mt-8 flex justify-center gap-4">
+          <Button asChild size="lg">
+            <Link href="/blog">
+              {dictionary.landing.browsePosts} <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
+          </Button>
+        </div>
+      </div>
+
+      <div className="mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+          <div className="p-6 border border-border/40 rounded-lg">
+            <h3 className="text-xl font-headline font-semibold">{dictionary.landing.feature1.title}</h3>
+            <p className="mt-2 text-muted-foreground">{dictionary.landing.feature1.description}</p>
           </div>
-        )}
+          <div className="p-6 border border-border/40 rounded-lg">
+            <h3 className="text-xl font-headline font-semibold">{dictionary.landing.feature2.title}</h3>
+            <p className="mt-2 text-muted-foreground">{dictionary.landing.feature2.description}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

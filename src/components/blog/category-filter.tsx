@@ -20,7 +20,7 @@ export function CategoryFilter({ categories, currentCategory }: CategoryFilterPr
   return (
     <div className={`flex flex-wrap items-center justify-center gap-2 ${language === 'fa' ? 'font-persian' : ''}`}>
       <Button asChild variant={!currentCategory ? 'default' : 'outline'} size="sm">
-        <Link href="/">{dictionary.categories.all}</Link>
+        <Link href="/blog">{dictionary.categories.all}</Link>
       </Button>
       {categories.map((category) => (
         <Button
@@ -30,7 +30,7 @@ export function CategoryFilter({ categories, currentCategory }: CategoryFilterPr
           size="sm"
           className="capitalize"
         >
-          <Link href={`/?category=${category}`}>{category}</Link>
+          <Link href={`/blog?category=${category}`}>{category}</Link>
         </Button>
       ))}
     </div>
