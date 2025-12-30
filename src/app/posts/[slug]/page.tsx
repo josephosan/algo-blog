@@ -10,6 +10,7 @@ import { useLanguage } from '@/contexts/language-context';
 import { useDictionary } from '@/hooks/use-dictionary';
 import { useEffect, useState } from 'react';
 import type { Post } from '@/types';
+import { AiChat } from '@/components/blog/ai-chat';
 
 export default function PostPage() {
   const { language } = useLanguage();
@@ -110,6 +111,12 @@ export default function PostPage() {
             ))}
           </div>
         </footer>
+
+        <AiChat
+          title={post.title[language]}
+          content={post.content[language]}
+          language={language}
+        />
       </article>
     </>
   );
