@@ -2,10 +2,24 @@ version: '3.8'
 
 services:
   app:
+    container_name: algo_blog
+    environment: 
+      - VIRTUAL_HOST=blog.josephosanlou.ir
+      - VIRTUAL_PORT=8525
+      - LETSENCRYPT_HOST=blog.josephosanlou.ir
+      - LETSENCRYPT_EMAIL=josephosan1381@gmail.com
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
-    environment:
-      NODE_ENV: production
+      - "8525:8525"
+    networks:
+      - core-net
+
+
+
+networks: 
+  core-net:
+    external: true
